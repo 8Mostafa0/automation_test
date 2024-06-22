@@ -13,6 +13,9 @@ def rem_file():
     os.remove('./1test.txt')
 
 def copy_folder(src,dst,symlink=False,ignore=None):
+    if os.path.exists(dst) == False or os.path.isdir(dst) == False:
+        os.mkdirs(dst)
+
     for item in os.listdir(src):
         s = os.path.join(src,item)
         d = os.path.join(dst,item)
@@ -37,6 +40,6 @@ def push_commit(commit_message):
 
 def main():
     copy_file()     
-    push_commit("Test Mikonim")     
+    push_commit("make apps automaticly push commit to git hub and now create a part for copy a folder")     
 if __name__ == '__main__':
     main()
