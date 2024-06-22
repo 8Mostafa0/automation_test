@@ -20,8 +20,7 @@ def push_commit(commit_message):
     text = ""
     for i in commit_message:
         text+= i+"_"
-    print(text)
-    os.system(f'cmd /c "git commit -m `{commit_message}`"')
+    os.system(f'cmd /c "git commit -m `{text}`"')
     os.system('cmd /c "git push"') 
     os.system('cmd /c "git init"')
     os.system('cmd /c "git add ."')
