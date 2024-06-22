@@ -6,13 +6,20 @@ import shutil
 
 
 def copy_file():
-    shutil.copy('./test.txt','./1text1.txt')
+    copy_folder('./Newfolder','./Newfolder1')
 
 
 def rem_file():
     os.remove('./1test.txt')
 
-
+def copy_folder(src,dst,symlink=False,ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src,item)
+        d = os.path.join(dst,item)
+        if os.path.isdir(s):
+            shutil.copytree(s,d,symlink,ignore)
+        else: 
+            shutil.copy2(s,d)
 
 
 def push_commit(commit_message):
