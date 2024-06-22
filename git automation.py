@@ -14,7 +14,7 @@ def rem_file():
 
 def copy_folder(src,dst,symlink=False,ignore=None):
     if os.path.exists(dst) == False or os.path.isdir(dst) == False:
-        os.mkdirs(dst)
+        os.mkdir(dst)
 
     for item in os.listdir(src):
         s = os.path.join(src,item)
@@ -30,7 +30,7 @@ def push_commit(commit_message):
     text = ""
     for i in commit_message:
         text+= i+"_"
-    os.system(f'cmd /c "git commit -m\"{text}\""')
+    os.system(f'cmd /c "git commit -m\"{commit_message}\""')
     os.system('cmd /c "git push"') 
     os.system('cmd /c "git init"')
     os.system('cmd /c "git add ."')
