@@ -26,10 +26,6 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 
 
 def push_commit(commit_message):
-    commit_message=commit_message.split(" ")
-    text = ""
-    for i in commit_message:
-        text+= i+"_"
     os.system(f'cmd /c "git commit -m\"{commit_message}\""')
     os.system('cmd /c "git push"') 
     os.system('cmd /c "git init"')
