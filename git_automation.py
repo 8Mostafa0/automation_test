@@ -86,15 +86,15 @@ def today_commits(number):
 
 
 def main():
-    date = datetime.now()
+    date = datetime.today().strftime("%Y-%m-%d")
     sleeped = False
     while True:
-        today  = datetime.now()
+        today  = datetime.today().strftime("%Y-%m-%d")
         print(today)
         print(date)
-        if today == date :
+        if datetime.strptime(today, "%Y-%m-%d") == datetime.strptime(date, "%Y-%m-%d") :
             print(today)
-            date = datetime.now().replace(day=datetime.now().day+1)
+            date = datetime.now().replace(day=datetime.strptime(today, "%Y-%m-%d").day+1)
             num = random.randint(10,20)
             today_commits(num)
             sleeped= False
