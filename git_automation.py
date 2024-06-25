@@ -60,7 +60,7 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        commain("git push --set-upstream origin optmize")
+        commain("cmd /c git push --set-upstream origin optmize")
         commain('cmd /c git checkout -b optmize')
     else:
         commain('cmd /c git checkout main')
