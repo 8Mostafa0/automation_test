@@ -1,8 +1,12 @@
 import time
 import os
 import random
-import shutil
+import shutil,errno
 from datetime import datetime
+
+
+def commain(string):
+    os.system(string)
 
 def copy_file():
     copy_folder('./Newfolder','./Newfolder1')
@@ -10,30 +14,36 @@ def copy_file():
 
 def rem_file():
     try:
-            
-        os.remove('./Newfolder1/1test1.txt')
-        os.remove('./Newfolder1/test.txt')
-        os.remove('./Newfolder1/tests.txt')
-        os.rmdir('./Newfolder1')
+        shutil.rmtree('Newfolder1')
     except:
         print("ERROR in DELETE FILES")
+
+
+
 def copy_folder(src,dst,symlink=False,ignore=None):
-    if os.path.exists(dst) == False or os.path.isdir(dst) == False:
-        os.mkdir(dst)
-    for item in os.listdir(src):
-        s = os.path.join(src,item)
-        d = os.path.join(dst,item)
-        if os.path.isdir(s):
-            shutil.copytree(s,d,symlink,ignore)
-        else: 
-            shutil.copy2(s,d)
+    os.makedirs(dst, exist_ok=True)
+    
+    # Iterate through the contents of the source folder
+    for root, dirs, files in os.walk(src):
+        # Determine the new directory path relative to the destination folder
+        relative_dir = os.path.relpath(root, src)
+        new_dir = os.path.join(dst, relative_dir)
+        
+        # Create the new directory if it doesn't exist
+        os.makedirs(new_dir, exist_ok=True)
+        
+        # Copy the files
+        for file in files:
+            src_file = os.path.join(root, file)
+            dst_file = os.path.join(new_dir, file)
+            shutil.copy2(src_file, dst_file)
 
 
 def push_commit(commit_message):
-    os.system(f'cmd /c "git commit -m \"{commit_message}\""')
-    os.system('cmd /c "git push"') 
-    os.system('cmd /c "git init"')
-    os.system('cmd /c "git add ."')
+    commain(f'cmd /c git commit -m \"{commit_message}\"')
+    commain('cmd /c "git push') 
+    commain('cmd /c "git init')
+    commain('cmd /c "git add ."')
 
 
 
@@ -51,9 +61,10 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        os.system('cmd /c "git checkout -b optimize"')
+        commain("git push --set-upstream origin optmize")
+        commain('cmd /c git checkout -b optmize')
     else:
-        os.system('cmd /c "git checkout main"')
+        commain('cmd /c git checkout main')
 
 def today_commits(number):
     i = 0
@@ -70,8 +81,7 @@ def today_commits(number):
         isLastMoveDelete = not isLastMoveDelete
         msg = generate_commit_message()
         push_commit(msg)
-
-        if i % 2:
+        if i % 2 == 0:
             changebranch(branch)
 
 
