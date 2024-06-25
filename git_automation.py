@@ -1,8 +1,6 @@
-import time
 import os
+import random
 import shutil
-from threading import Timer
-from random import randrange
 from datetime import datetime
 
 def copy_file():
@@ -10,12 +8,14 @@ def copy_file():
 
 
 def rem_file():
-    os.remove('./1test.txt')
+    os.remove('./Newfolder1/1test1.txt')
+    os.remove('./Newfolder1/test.txt')
+    os.remove('./Newfolder1/tests.txt')
+    os.rmdir('./Newfolder1')
 
 def copy_folder(src,dst,symlink=False,ignore=None):
     if os.path.exists(dst) == False or os.path.isdir(dst) == False:
         os.mkdir(dst)
-
     for item in os.listdir(src):
         s = os.path.join(src,item)
         d = os.path.join(dst,item)
@@ -34,43 +34,54 @@ def push_commit(commit_message):
 
 
 def generate_commit_message():
-    return "Test"
+    words = ["the", "quick", "brown", "fox", "jumps", "over", "lazy", "dog"]
+
+    # Generate a random sentence
+    sentence = " ".join(random.sample(words, random.randint(5, 6)))
+    return sentence
 
 
-def del_or_add():
-    isLastMoveDelete = True
-    if isLastMoveDelete == True:
-        copy_file()
+def changebranch(opt):
+    bch = "main"
+    if opt:
+        bch = "optimize"
+    print("branch set to  => ",bch)
+    if(opt):
+        os.system('cmd /c "git branch optimize"')
+        os.system('cmd /c "git checkout optimize"')
     else:
-        rem_file()
-    isLastMoveDelete = not isLastMoveDelete
-    msg = generate_commit_message()
-    push_commit(msg)
-
-
+        os.system('cmd /c "git checkout main"')
 
 def today_commits(number):
     i = 0
-    print(i)
-    start = randrange(9)
-    date = datetime.now()
+    print("Commits : ",number)
+    isLastMoveDelete = True
+    branch = False
     while( i < number):
+        print("Commit =>",i)
         i+=1
-        if date.hour >= start:
-            del_or_add()
+        if isLastMoveDelete == True:
+            copy_file()
+        else:
+            rem_file()
+        isLastMoveDelete = not isLastMoveDelete
+        msg = generate_commit_message()
+        push_commit(msg)
 
-
-
-def start():
-    start_date = datetime.now()
-    next_date = start_date.replace(day=start_date.day+1)
-    today_commits(1)
-         
-
+        if i % 2:
+            changebranch(branch)
 
 
 def main():
-    start()
+    date = datetime.now()
+    while True:
+        today  = datetime.now()
+        if(today == date):
+            print(today)
+            date = datetime.now().replace(day=datetime.now().day+1)
+            num = random.randint(10,20)
+            today_commits(num)
+    
 if __name__ == '__main__':
     main()
 
