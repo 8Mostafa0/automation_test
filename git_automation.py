@@ -50,8 +50,7 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        os.system('cmd /c "git branch optimize"')
-        os.system('cmd /c "git checkout optimize"')
+        os.system('cmd /c "git checkout -b optimize"')
     else:
         os.system('cmd /c "git checkout main"')
 
