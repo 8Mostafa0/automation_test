@@ -8,11 +8,14 @@ def copy_file():
 
 
 def rem_file():
-    os.remove('./Newfolder1/1test1.txt')
-    os.remove('./Newfolder1/test.txt')
-    os.remove('./Newfolder1/tests.txt')
-    os.rmdir('./Newfolder1')
-
+    try:
+            
+        os.remove('./Newfolder1/1test1.txt')
+        os.remove('./Newfolder1/test.txt')
+        os.remove('./Newfolder1/tests.txt')
+        os.rmdir('./Newfolder1')
+    except:
+        print("ERROR in DELETE FILES")
 def copy_folder(src,dst,symlink=False,ignore=None):
     if os.path.exists(dst) == False or os.path.isdir(dst) == False:
         os.mkdir(dst)
