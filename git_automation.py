@@ -90,7 +90,9 @@ def main():
     sleeped = False
     while True:
         today  = datetime.now()
-        if(today == date):
+        print(today)
+        print(date)
+        if today == date :
             print(today)
             date = datetime.now().replace(day=datetime.now().day+1)
             num = random.randint(10,20)
