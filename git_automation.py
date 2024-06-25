@@ -1,3 +1,4 @@
+import time
 import os
 import random
 import shutil
@@ -76,6 +77,7 @@ def today_commits(number):
 
 def main():
     date = datetime.now()
+    sleeped = False
     while True:
         today  = datetime.now()
         if(today == date):
@@ -83,7 +85,14 @@ def main():
             date = datetime.now().replace(day=datetime.now().day+1)
             num = random.randint(10,20)
             today_commits(num)
-    
+            sleeped= False
+        else:
+            if sleeped == False:
+                sleeped= True
+                sleep_duration = 23 * 3600 + 55 * 60
+                print("Sleeping for 23 hours and 55 minutes...")
+                time.sleep(sleep_duration)
+                print("Woke up!")
 if __name__ == '__main__':
     main()
 
