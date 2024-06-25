@@ -93,8 +93,7 @@ def main():
         print(today)
         print(date)
         if datetime.strptime(today, "%Y-%m-%d") == datetime.strptime(date, "%Y-%m-%d") :
-            print(today)
-            date = datetime.now().replace(day=datetime.strptime(today, "%Y-%m-%d").day+1)
+            date = today.replace(day=datetime.strptime(today, "%Y-%m-%d").day+1)
             num = random.randint(10,20)
             today_commits(num)
             sleeped= False
