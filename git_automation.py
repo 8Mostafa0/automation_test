@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 def commain(string):
+    print("\n\n",string,"\n\n")
     os.system(string)
 
 def copy_file():
@@ -40,10 +41,9 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 
 
 def push_commit(commit_message):
-    commain(f'cmd /c git commit -m \"{commit_message}\"')
-    commain('cmd /c "git push') 
-    commain('cmd /c "git init')
-    commain('cmd /c "git add ."')
+    commain('git add .')
+    commain(f' git commit -m \"{commit_message}\"')
+    commain('git push mosi') 
 
 
 
@@ -61,10 +61,10 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        commain("git push --set-upstream origin optmize")
-        commain('cmd /c git checkout -b optmize')
+        commain('git branch -b optmize')
+        commain("git --set-upstream origin optmize")
     else:
-        commain('cmd /c git checkout main')
+        commain('git checkout main')
 
 def today_commits(number):
     i = 0
@@ -93,7 +93,7 @@ def main():
         print(today)
         print(date)
         if datetime.strptime(today, "%Y-%m-%d") == datetime.strptime(date, "%Y-%m-%d") :
-            date = today.replace(day=datetime.strptime(today, "%Y-%m-%d").day+1)
+            date = datetime.strptime(today, "%Y-%m-%d").replace(day=datetime.strptime(today, "%Y-%m-%d").day+1).strftime("%Y-%m-%d")
             num = random.randint(10,20)
             today_commits(num)
             sleeped= False
