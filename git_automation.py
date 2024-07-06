@@ -1,9 +1,36 @@
 import time
 import os
 import random
-import shutil,errno
+import shutil
 from datetime import datetime
+import random
+os.system("cd /home/mosielite4/GitTest/automation_test/")
+# Lists of words for different parts of speech
+subjects = ["Python", "Loops", "Functions", "Variables"]
+verbs = ["learned", "practiced", "debugged", "built"]
+adjectives = ["fun", "challenging", "powerful", "useful"]
+articles = ["a", "an"]
+prepositions = ["with", "on", "about"]
 
+# Function to generate a random sentence
+def generate_sentence():
+  subject = random.choice(subjects)
+  verb = random.choice(verbs)
+  adjective = random.choice(adjectives)
+  article = random.choice(articles) if subject not in ["Python"] else ""
+  preposition = random.choice(prepositions)
+
+  # Combine the words with spaces and punctuation
+  sentence = f"{article} {subject} lesson was {adjective} and we {verb} {preposition} it in class."
+  return sentence
+
+# Generate and print 5 random sentences
+
+def generate_commit_message():
+    sentence = ""
+    for _ in range(7):
+        sentence = generate_sentence()
+    return sentence
 
 def commain(string):
     print("\n\n",string,"\n\n")
@@ -23,16 +50,16 @@ def rem_file():
 
 def copy_folder(src,dst,symlink=False,ignore=None):
     os.makedirs(dst, exist_ok=True)
-    
+
     # Iterate through the contents of the source folder
     for root, dirs, files in os.walk(src):
         # Determine the new directory path relative to the destination folder
         relative_dir = os.path.relpath(root, src)
         new_dir = os.path.join(dst, relative_dir)
-        
+
         # Create the new directory if it doesn't exist
         os.makedirs(new_dir, exist_ok=True)
-        
+
         # Copy the files
         for file in files:
             src_file = os.path.join(root, file)
@@ -43,16 +70,9 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 def push_commit(commit_message):
     commain('git add .')
     commain(f' git commit -m \"{commit_message}\"')
-    commain('git push mosi') 
+    commain('git push Mosi main')
 
 
-
-def generate_commit_message():
-    words = ["the", "quick", "brown", "fox", "jumps", "over", "lazy", "dog"]
-
-    # Generate a random sentence
-    sentence = " ".join(random.sample(words, random.randint(5, 6)))
-    return sentence
 
 
 def changebranch(opt):
