@@ -4,7 +4,9 @@ import random
 import shutil
 from datetime import datetime
 import random
-os.system("cd /home/mosielite4/GitTest/automation_test/")
+os.system("cd /home/mosieilte5/mosi/")
+res = os.system("ls mosi -l")
+print(res)
 # Lists of words for different parts of speech
 subjects = ["Python", "Loops", "Functions", "Variables"]
 verbs = ["learned", "practiced", "debugged", "built"]
@@ -70,7 +72,7 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 def push_commit(commit_message):
     commain('git add .')
     commain(f' git commit -m \"{commit_message}\"')
-    commain('git push Mosi main')
+    commain('git push mosi main')
 
 
 
