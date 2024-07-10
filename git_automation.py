@@ -73,9 +73,9 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 
 def push_commit(commit_message):
     commands('git add .')
-    txt = ' git commit -m'
+    txt = ' git commit -m '
     for i in commit_message.split():
-        txt += "i"
+        txt += i+"_"
 
 
     commands(txt)
