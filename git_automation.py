@@ -4,7 +4,7 @@ import random
 import shutil
 from datetime import datetime
 import random
-os.system("cd /home/mosieilte5/mosi/")
+os.system("cd /home/mosieilte5/mosi/automation_test")
 res = os.system("ls mosi -l")
 print(res)
 # Lists of words for different parts of speech
