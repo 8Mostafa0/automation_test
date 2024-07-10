@@ -1,12 +1,14 @@
 import time
-import os
-import random
+import subprocess as sp
 import shutil
-from datetime import datetime
 import random
-os.system("cd /home/mosieilte5/mosi/automation_test")
-res = os.system("ls mosi -l")
-print(res)
+import os
+from datetime import datetime
+sp.call (['echo','Program ==================================== Started'])
+os.chdir("/home/mosielite5/mosi/automation_test/")
+sp.call(["ls","-l"])
+# sp.call(["cd","/mosi/automation_test/"])
+
 # Lists of words for different parts of speech
 subjects = ["Python", "Loops", "Functions", "Variables"]
 verbs = ["learned", "practiced", "debugged", "built"]
@@ -34,9 +36,9 @@ def generate_commit_message():
         sentence = generate_sentence()
     return sentence
 
-def commain(string):
-    print("\n\n",string,"\n\n")
-    os.system(string)
+def commands(string):
+    sp.call(["echo",string+"\n\n"])
+    sp.call(string.split())
 
 def copy_file():
     copy_folder('./Newfolder','./Newfolder1')
@@ -46,7 +48,7 @@ def rem_file():
     try:
         shutil.rmtree('Newfolder1')
     except:
-        print("ERROR in DELETE FILES")
+        os.call(["echo","ERROR in DELETE FILES"])
 
 
 
@@ -70,9 +72,14 @@ def copy_folder(src,dst,symlink=False,ignore=None):
 
 
 def push_commit(commit_message):
-    commain('git add .')
-    commain(f' git commit -m \"{commit_message}\"')
-    commain('git push mosi main')
+    commands('git add .')
+    txt = ' git commit -m'
+    for i in commit_message.split():
+        txt += "i"
+
+
+    commands(txt)
+    commands('git push mosi main')
 
 
 
@@ -83,14 +90,14 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        commain('git branch -b optmize')
-        commain("git --set-upstream origin optmize")
+        commands('git branch -b optmize')
+        commands("git --set-upstream origin optmize")
     else:
-        commain('git checkout main')
+        commands('git checkout main')
 
 def today_commits(number):
     i = 0
-    print("Commits : ",number)
+    sp.call(["echo","Commits : ",str(number)])
     isLastMoveDelete = True
     branch = False
     while( i < number):
