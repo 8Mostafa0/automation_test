@@ -71,15 +71,15 @@ def copy_folder(src,dst,symlink=False,ignore=None):
             shutil.copy2(src_file, dst_file)
 
 
-def push_commit(commit_message):
+def push_commit(commit_message,branch):
     commands('git add .')
     txt = ' git commit -m '
     for i in commit_message.split():
         txt += i+"_"
 
 
-    commands(txt)
-    commands('git push mosi main')
+    commands(txt+"_"+branch)
+    commands('git push mosi '+branch)
 
 
 
@@ -90,7 +90,7 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        commands('git branch -b optmize')
+        commands('git branch  optmize')
         commands("git --set-upstream origin optmize")
     else:
         commands('git checkout main')
@@ -109,9 +109,15 @@ def today_commits(number):
             rem_file()
         isLastMoveDelete = not isLastMoveDelete
         msg = generate_commit_message()
-        push_commit(msg)
+        branch = "main"
+        push_commit(msg,branch)
         if i % 2 == 0:
+            if branch == "main":
+                branch = "optmize"
+            else:
+                branch = "main"
             changebranch(branch)
+
 
 
 def main():
