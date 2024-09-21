@@ -1,10 +1,14 @@
 import time
-import os
-import random
+import subprocess as sp
 import shutil
-from datetime import datetime
 import random
-os.system("cd /home/mosielite4/GitTest/automation_test/")
+import os
+from datetime import datetime
+sp.call (['echo','Program ==================================== Started'])
+os.chdir("/home/mosielite5/mosi/automation_test/")
+sp.call(["ls","-l"])
+# sp.call(["cd","/mosi/automation_test/"])
+
 # Lists of words for different parts of speech
 subjects = ["Python", "Loops", "Functions", "Variables"]
 verbs = ["learned", "practiced", "debugged", "built"]
@@ -32,9 +36,9 @@ def generate_commit_message():
         sentence = generate_sentence()
     return sentence
 
-def commain(string):
-    print("\n\n",string,"\n\n")
-    os.system(string)
+def commands(string):
+    sp.call(["echo",string+"\n\n"])
+    sp.call(string.split())
 
 def copy_file():
     copy_folder('./Newfolder','./Newfolder1')
@@ -44,7 +48,7 @@ def rem_file():
     try:
         shutil.rmtree('Newfolder1')
     except:
-        print("ERROR in DELETE FILES")
+        os.call(["echo","ERROR in DELETE FILES"])
 
 
 
@@ -67,10 +71,15 @@ def copy_folder(src,dst,symlink=False,ignore=None):
             shutil.copy2(src_file, dst_file)
 
 
-def push_commit(commit_message):
-    commain('git add .')
-    commain(f' git commit -m \"{commit_message}\"')
-    commain('git push Mosi main')
+def push_commit(commit_message,branch):
+    commands('git add .')
+    txt = ' git commit -m '
+    for i in commit_message.split():
+        txt += i+"_"
+
+
+    commands(txt+"_"+branch)
+    commands('git push mosi '+branch)
 
 
 
@@ -81,14 +90,14 @@ def changebranch(opt):
         bch = "optimize"
     print("branch set to  => ",bch)
     if(opt):
-        commain('git branch -b optmize')
-        commain("git --set-upstream origin optmize")
+        commands('git branch  optmize')
+        commands("git --set-upstream origin optmize")
     else:
-        commain('git checkout main')
+        commands('git checkout main')
 
 def today_commits(number):
     i = 0
-    print("Commits : ",number)
+    sp.call(["echo","Commits : ",str(number)])
     isLastMoveDelete = True
     branch = False
     while( i < number):
@@ -100,9 +109,15 @@ def today_commits(number):
             rem_file()
         isLastMoveDelete = not isLastMoveDelete
         msg = generate_commit_message()
-        push_commit(msg)
+        branch = "main"
+        push_commit(msg,branch)
         if i % 2 == 0:
+            if branch == "main":
+                branch = "optmize"
+            else:
+                branch = "main"
             changebranch(branch)
+
 
 
 def main():
@@ -114,7 +129,7 @@ def main():
         print(date)
         if datetime.strptime(today, "%Y-%m-%d") == datetime.strptime(date, "%Y-%m-%d") :
             date = datetime.strptime(today, "%Y-%m-%d").replace(day=datetime.strptime(today, "%Y-%m-%d").day+1).strftime("%Y-%m-%d")
-            num = random.randint(10,20)
+            num = random.randint(0,15)
             today_commits(num)
             sleeped= False
         else:
