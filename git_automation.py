@@ -5,7 +5,7 @@ import random
 import os
 from datetime import datetime
 sp.call (['echo','Program ==================================== Started'])
-os.chdir("/home/mosielite4/mosi/automation_test/")
+os.chdir("/home/mosielite5/mosi/automation_test/")
 sp.call(["ls","-l"])
 # sp.call(["cd","/mosi/automation_test/"])
 
